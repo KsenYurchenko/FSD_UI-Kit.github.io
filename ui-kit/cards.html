@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../icons/arrows_previos_next/css/fontello.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../icons/icon_stars/css/fontello.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../icons/icon_arrow_down/css/fontello.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../styles/ui-kit_cards.css" />
+    <link
+      rel="stylesheet"
+      type="text/x-scss"
+      href="../styles/ui-kit_cards.scss"
+    />
+    <link
+      rel="stylesheet"
+      type="application/json"
+      href="../styles/ui-kit_cards.css.map"
+    />
+
+    <link rel="stylesheet" type="image/svg+xml" href="../logo/" />
+    <link rel="stylesheet" type="image/jpeg" href="../svg/" />
+
+    <title>Ui-Kit Cards</title>
+  </head>
+  <body>
+    <div class="cards">
+      <div class="cards__logo_default logo_default">
+        <div class="logo__circle_default">
+          <div class="logo__left_default"></div>
+          <div class="logo__right_default"></div>
+        </div>
+      </div>
+      <div class="cards__request-block request-block">
+        <form
+          action="filter_goods_page.html"
+          method="GET"
+          name="search_room"
+          autocomplete="off"
+          target=""
+        >
+          <p class="request-block__h1">
+            Найдём номера под<br />
+            ваши пожелания
+          </p>
+          <p class="request-block__h3">прибытие</p>
+          <p class="request-block__h3 request-block__h3_right">выезд</p>
+          <div class="date">
+            <input
+              type="text"
+              name="trip_start"
+              class="text-field__input date__arrival"
+              id="trip_start"
+              placeholder="ДД.ММ.ГГГГ"
+              autocomplete="off"
+            />
+            <i class="icon-angle-down-slim date__icon" id="trip_start_btn"></i>
+          </div>
+          <div class="date request-block__date">
+            <input
+              type="text"
+              name="trip_end"
+              class="text-field__input date__departure"
+              id="trip_end"
+              placeholder="ДД.ММ.ГГГГ"
+              autocomplete="off"
+            />
+            <i class="icon-angle-down-slim date__icon" id="trip_end_btn"></i>
+          </div>
+          <div class="calendar request-block__calendar none">
+            <div class="calendar__card">
+              <div class="calendar__head">
+                <span class="calendar__btn" id="previous">
+                  <i class="icon-arrow-previous"></i>
+                </span>
+                <h3 class="calendar__header" id="monthAndYear"></h3>
+                <span class="calendar__btn" id="next">
+                  <i class="icon-arrow-next"></i>
+                </span>
+              </div>
+              <table class="calendar__table" id="calendar">
+                <thead class="calendar__thead">
+                  <tr class="tr">
+                    <th class="calendar__day">Пн</th>
+                    <th class="calendar__day">Вт</th>
+                    <th class="calendar__day">Ср</th>
+                    <th class="calendar__day">Чт</th>
+                    <th class="calendar__day">Пт</th>
+                    <th class="calendar__day">Сб</th>
+                    <th class="calendar__day">Вс</th>
+                  </tr>
+                </thead>
+
+                <tbody id="calendar-body"></tbody>
+              </table>
+            </div>
+            <div class="calendar__clear clear">очистить</div>
+            <div class="calendar__apply apply" id="applyDates">применить</div>
+          </div>
+          <div class="request-block__guests">гости</div>
+          <div
+            class="dropdown dropdown_big request-block__dropdown"
+            id="dropdown_guests"
+          >
+            <div class="dropdown__input default">
+              <input
+                type="text"
+                name="guests"
+                class="dropdown__text dropdown-big__text"
+                id="dropdown_guests__text"
+                placeholder="Сколько гостей"
+                autocomplete="off"
+              />
+              <i class="icon-angle-down-slim"></i>
+            </div>
+            <div
+              class="dropdown__options dropdown_big__options hidden"
+              id="dropdown_guests__options"
+            >
+              <div id="adult">
+                <p class="dropdown__option">взрослые</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch active">-</span>
+                  <div class="counter__value" id="adult_value">2</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div id="children">
+                <p class="dropdown__option">дети</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch default">-</span>
+                  <div class="counter__value" id="children_value">0</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div id="babies">
+                <p class="dropdown__option">младенцы</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch default">-</span>
+                  <div class="counter__value" id="babies_value">0</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div class="dropdown_btns">
+                <span class="dropdown__clear">очистить</span>
+                <span class="dropdown__apply">применить</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn-go-to-pay request-block__btn">
+            <span class="btn-go-to-pay__text">подобрать номер</span>
+            <i class="icon-arrow-next btn-go-to-pay__icon"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="cards__registration registration">
+        <form action="/" autocomplete="on" name="registration" method="GET">
+          <div class="registration__title">Регистрация аккаунта</div>
+          <div class="text-field registration__field">
+            <input
+              class="text-field__input email"
+              type="text"
+              name="name"
+              placeholder="Имя"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <div class="text-field registration__field">
+            <input
+              class="text-field__input email"
+              type="text"
+              name="surname"
+              placeholder="Фамилия"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <label class="checkboxButton_label" for="man">
+            <input
+              class="checkboxButton__input"
+              type="radio"
+              id="man"
+              name="gender"
+              value="man"
+              checked
+            />
+            <span class="checkboxButton__radio"></span>
+            <div class="checkboxButton__item checkboxButton__item_checked">
+              Мужчина
+            </div>
+          </label>
+          <label class="checkboxButton_label registration__radio" for="woman">
+            <input
+              class="checkboxButton__input"
+              type="radio"
+              id="woman"
+              name="gender"
+              value="woman"
+            />
+            <span class="checkboxButton__radio"></span>
+            <div class="checkboxButton__item">Женщина</div>
+          </label>
+          <div class="text-field registration__birth-title">
+            <label for="birth" class="text-field__title">дата рождения</label>
+            <input
+              type="date"
+              name="birthDay"
+              class="text-field__input birth-date"
+              id="birth"
+              placeholder="ДД.ММ.ГГГГ"
+              min="1930-01-01"
+              max="2010-12-31"
+              required
+            />
+          </div>
+          <div class="registration__data">данные для входа в сервис</div>
+          <div class="text-field registration__field">
+            <input
+              class="text-field__input email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <div class="text-field registration__field">
+            <input
+              class="text-field__input email"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <label for="sales" class="switch switch_default registration__switch">
+            <input
+              type="checkbox"
+              name="getSales"
+              id="sales"
+              class="switch__input"
+            />
+            <span class="switch__circle"></span>
+          </label>
+          <div class="switch__title registration__switch-title">
+            Получать спецпредложения
+          </div>
+          <button type="submit" class="btn-go-to-pay registration__btn">
+            <span class="btn-go-to-pay__text">перейти к оплате</span>
+            <i class="icon-arrow-next btn-go-to-pay__icon"></i>
+          </button>
+        </form>
+        <div class="registration__wrapper">
+          <p class="registration__alternative">Уже есть аккаунт на Toxin</p>
+          <a href="login_page.html">
+            <button class="btn btn_active btn_white registration__login-btn">
+              войти
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="cards__order order">
+        <form
+          action="/"
+          method="GET"
+          name="make_reservation"
+          autocomplete="off"
+        >
+          <div class="order__title">
+            <span class="order__number_text">№</span>
+            <span class="order__number">888</span>
+            <span class="order__level">люкс</span>
+            <span class="order__price">
+              <span class="order__num">9 990₽</span> в сутки</span
+            >
+          </div>
+          <p class="order__h3">прибытие</p>
+          <p class="order__h3 order__h3_right">выезд</p>
+          <div class="date">
+            <input
+              type="text"
+              name="trip_start"
+              class="text-field__input date__arrival"
+              id="trip_start"
+              placeholder="ДД.ММ.ГГГГ"
+              autocomplete="off"
+              value="20.07.2020"
+            />
+            <i class="icon-angle-down-slim date__icon" id="trip_start_btn"></i>
+          </div>
+          <div class="date order__date">
+            <input
+              type="text"
+              name="trip_end"
+              class="text-field__input date__departure"
+              id="trip_end"
+              placeholder="ДД.ММ.ГГГГ"
+              autocomplete="off"
+              value="24.07.2020"
+            />
+            <i class="icon-angle-down-slim date__icon" id="trip_end_btn"></i>
+          </div>
+          <div class="calendar order__calendar none">
+            <div class="calendar__card">
+              <div class="calendar__head">
+                <span class="calendar__btn" id="previous">
+                  <i class="icon-arrow-previous"></i>
+                </span>
+                <h3 class="calendar__header" id="monthAndYear"></h3>
+                <span class="calendar__btn" id="next">
+                  <i class="icon-arrow-next"></i>
+                </span>
+              </div>
+              <table class="calendar__table" id="calendar">
+                <thead class="calendar__thead">
+                  <tr class="tr">
+                    <th class="calendar__day">Пн</th>
+                    <th class="calendar__day">Вт</th>
+                    <th class="calendar__day">Ср</th>
+                    <th class="calendar__day">Чт</th>
+                    <th class="calendar__day">Пт</th>
+                    <th class="calendar__day">Сб</th>
+                    <th class="calendar__day">Вс</th>
+                  </tr>
+                </thead>
+
+                <tbody id="calendar-body"></tbody>
+              </table>
+            </div>
+            <div class="calendar__clear clear">очистить</div>
+            <div class="calendar__apply apply" id="applyDates">применить</div>
+          </div>
+          <div class="order__guests">гости</div>
+          <div
+            class="dropdown dropdown_big order__dropdown"
+            id="dropdown_guests"
+          >
+            <div class="dropdown__input default">
+              <input
+                type="text"
+                name="guests"
+                class="dropdown__text dropdown-big__text"
+                id="dropdown_guests__text"
+                placeholder="Сколько гостей"
+                autocomplete="off"
+              />
+              <i class="icon-angle-down-slim"></i>
+            </div>
+            <div
+              class="dropdown__options dropdown_big__options hidden"
+              id="dropdown_guests__options"
+            >
+              <div id="adult">
+                <p class="dropdown__option">взрослые</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch active">-</span>
+                  <div class="counter__value" id="adult_value">2</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div id="children">
+                <p class="dropdown__option">дети</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch default">-</span>
+                  <div class="counter__value" id="children_value">0</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div id="babies">
+                <p class="dropdown__option">младенцы</p>
+                <div class="counter dropdown__counter">
+                  <span class="counter__switch default">-</span>
+                  <div class="counter__value" id="babies_value">0</div>
+                  <span class="counter__switch active">+</span>
+                </div>
+              </div>
+              <div class="dropdown_btns">
+                <span class="dropdown__clear">очистить</span>
+                <span class="dropdown__apply">применить</span>
+              </div>
+            </div>
+          </div>
+          <ul class="order__list list">
+            <li class="list__item">
+              <span class="list__text">9 990₽ х 4 суток</span>
+              <span class="list__price">39 960₽</span>
+            </li>
+            <li class="list__item">
+              <span class="list__text">Сбор за услуги: скидка 2 179₽</span>
+              <span class="info list__info">i</span>
+              <span class="list__price">0₽</span>
+            </li>
+            <li class="list__item">
+              <span class="list__text">Сбор за дополнительные</span>
+              <span class="info list__info">i</span>
+              <span class="list__price">300₽</span>
+              <span class="list__text">услуги</span>
+            </li>
+          </ul>
+          <span class="order__total-text">Итого</span>
+          <span class="order__total-line"></span>
+          <span class="order__total-sum">38 081₽</span>
+          <button type="submit" class="btn-go-to-pay order__btn">
+            <span class="btn-go-to-pay__text">перейти к оплате</span>
+            <i class="icon-arrow-next btn-go-to-pay__icon"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="cards__login-form login-form">
+        <form action="/" autocomplete="on" name="login" method="GET">
+          <p class="login-form__title">Войти</p>
+          <div class="text-field login-form__field">
+            <input
+              class="text-field__input email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <div class="text-field login-form__field">
+            <input
+              class="text-field__input email"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              autocomplete="on"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-go-to-pay login-form__btn">
+            <span class="btn-go-to-pay__text">войти</span>
+            <i class="icon-arrow-next btn-go-to-pay__icon"></i>
+          </button>
+        </form>
+        <div class="login-form__wrapper">
+          <p class="login-form__alternative">Нет аккаунта на Toxin?</p>
+          <a href="registration_page.html">
+            <button class="btn btn_active btn_white login-form__login-btn">
+              создать
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="cards__calendar calendar">
+        <div class="calendar__card">
+          <div class="calendar__head">
+            <span class="calendar__btn" id="previous">
+              <i class="icon-arrow-previous"></i>
+            </span>
+            <h3 class="calendar__header" id="monthAndYear">Июль 2020</h3>
+            <span class="calendar__btn" id="next">
+              <i class="icon-arrow-next"></i>
+            </span>
+          </div>
+          <table class="calendar__table" id="calendar">
+            <thead class="calendar__thead">
+              <tr class="tr">
+                <th class="calendar__day">Пн</th>
+                <th class="calendar__day">Вт</th>
+                <th class="calendar__day">Ср</th>
+                <th class="calendar__day">Чт</th>
+                <th class="calendar__day">Пт</th>
+                <th class="calendar__day">Сб</th>
+                <th class="calendar__day">Вс</th>
+              </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+              <tr>
+                <td class="calendar__date"></td>
+                <td class="calendar__date"></td>
+                <td class="calendar__date">1</td>
+                <td class="calendar__date">2</td>
+                <td class="calendar__date">3</td>
+                <td class="calendar__date">4</td>
+                <td class="calendar__date">5</td>
+              </tr>
+              <tr>
+                <td class="calendar__date">6</td>
+                <td class="calendar__date">7</td>
+                <td class="calendar__date calendar__date_secondary">8</td>
+                <td class="calendar__date">9</td>
+                <td class="calendar__date">10</td>
+                <td class="calendar__date">11</td>
+                <td class="calendar__date">12</td>
+              </tr>
+              <tr>
+                <td class="calendar__date">13</td>
+                <td class="calendar__date">14</td>
+                <td class="calendar__date">15</td>
+                <td class="calendar__date">16</td>
+                <td class="calendar__date">17</td>
+                <td class="calendar__date">18</td>
+                <td class="calendar__date">19</td>
+              </tr>
+              <tr>
+                <td class="calendar__date calendar__date_start">
+                  <div class="calendar__date_checked">20</div>
+                </td>
+                <td class="calendar__date calendar__date_trip">21</td>
+                <td class="calendar__date calendar__date_trip">22</td>
+                <td class="calendar__date calendar__date_trip">23</td>
+                <td class="calendar__date calendar__date_end">
+                  <div class="calendar__date_checked">24</div>
+                </td>
+                <td class="calendar__date">25</td>
+                <td class="calendar__date">26</td>
+              </tr>
+              <tr>
+                <td class="calendar__date">27</td>
+                <td class="calendar__date">28</td>
+                <td class="calendar__date">29</td>
+                <td class="calendar__date">30</td>
+                <td class="calendar__date">31</td>
+                <td class="calendar__date calendar__next-month">1</td>
+                <td class="calendar__date calendar__next-month">2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="calendar__clear clear">очистить</div>
+        <div class="calendar__apply apply" id="applyDates">применить</div>
+      </div>
+
+      <div
+        class="cards__product-card cards__product-card_styles product-card"
+        id="room"
+      >
+        <div class="product-card__slider slider">
+          <div
+            class="slider-container"
+            style="background-image: url('../img/room.png');"
+          >
+            <span class="arrow_next"
+              ><i class="icon-angle-down-slim arrow_next__icon"></i>
+            </span>
+            <span class="arrow_prev"
+              ><i class="icon-angle-down-slim arrow_prev__icon"></i>
+            </span>
+            <div class="switchers">
+              <span class="switcher" style="background-color: white;"></span>
+              <span class="switcher"></span>
+              <span class="switcher"></span>
+              <span class="switcher"></span>
+            </div>
+          </div>
+        </div>
+        <a href="room_details.html" class="product-card__info">
+          <div class="product-card__row">
+            <div class="product-card__col">
+              <span class="product-card__number">№ 888</span>
+              <span class="product-card__level">люкс</span>
+            </div>
+            <div class="product-card__col">
+              <span class="product-card__price">9 900₽&nbsp;</span>
+              в сутки
+            </div>
+          </div>
+          <hr class="line" />
+          <div class="product-card__row">
+            <div class="product-card__col">
+              <div class="rating">
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+              </div>
+            </div>
+            <div class="product-card__col">
+              <span class="product-card__price">65 &nbsp;</span>Отзывов
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="cards__product-card product-card" id="room">
+        <div class="product-card__slider slider">
+          <div
+            class="slider-container"
+            style="background-image: url('../img/room_103_4.png');"
+          >
+            <span class="arrow_next"
+              ><i
+                class="icon-angle-down-slim arrow_next__icon"
+                aria-hidden="true"
+              ></i>
+            </span>
+            <span class="arrow_prev"
+              ><i
+                class="icon-angle-down-slim arrow_prev__icon"
+                aria-hidden="true"
+              ></i>
+            </span>
+            <div class="switchers">
+              <span class="switcher" style="background-color: white;"></span>
+              <span class="switcher"></span>
+              <span class="switcher"></span>
+              <span class="switcher"></span>
+            </div>
+          </div>
+        </div>
+        <a href="room_details.html" class="product-card__info">
+          <div class="product-card__row">
+            <div class="product-card__col">
+              <span class="product-card__number">№ 840</span>
+              <span class="product-card__level"></span>
+            </div>
+            <div class="product-card__col">
+              <span class="product-card__price">9 900₽&nbsp;</span>
+              в сутки
+            </div>
+          </div>
+          <hr class="line" />
+          <div class="product-card__row">
+            <div class="product-card__col">
+              <div class="rating">
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star"></i>
+                </div>
+                <div class="star rating__star">
+                  <i class="icon-star-empty"></i>
+                </div>
+              </div>
+            </div>
+            <div class="product-card__col">
+              <span class="product-card__price">145&nbsp;</span>Отзывов
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
